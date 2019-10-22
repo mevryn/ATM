@@ -158,7 +158,10 @@ public class ConsoleATMController implements ATMController {
                 System.out.println("How much you want to transfer?");
                 Double amount = scanner.nextDouble();
                 scanner.nextLine();
-                accountRepository.transferMoney(currentUser,ownerRepository.getOwnerByHisIdentity(targetIdentity),amount);
+                if(checkIfUserCanAffordPrepaid(currentUser,amount)) {
+                    accountRepository.transferMoney(currentUser, ownerRepository
+                            .getOwnerByHisIdentity(targetIdentity), amount);
+                }
             }else{
                 System.out.println("Provided Owner does not exists in repository");
             }
